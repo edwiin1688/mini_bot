@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.whl
+
+# 虛擬環境
+.venv/
+venv/
+env/
+.env
+
+# pip editable install
+*.egg-link
+pip-*.json
+site-packages/
+
+# 開發工具
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# minibot workspace（public repo 安全設定）
+# .example 範本檔案進版控，實際使用的個人檔案 ignore
+workspace/AGENTS.md
+workspace/memory/MEMORY.md
+workspace/sessions/
+workspace/memory/HISTORY.md
+
+# 環境變數
+.env.local
+.env.*.local
+
+# 日誌
+*.log
+logs/
