@@ -1,6 +1,6 @@
 # mini_bot
 
-最小可執行的 Personal AI Agent，基於 LiteLLM 支援多種 LLM Provider。
+MVP 最小可執行性產品（Minimum Viable Product）的 Personal AI Agent，基於 LiteLLM 支援多種 LLM Provider。
 
 ## 特色
 
