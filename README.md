@@ -128,4 +128,4 @@ minibot telegram
 Get-ChildItem -Recurse -File -Filter *.py minibot | Select-Object FullName | ForEach-Object { $lines = (Get-Content $_.FullName | Measure-Object -Line).Lines; [PSCustomObject]@{ File=$_.FullName.Replace((Get-Location).Path + "\", ""); Lines=$lines } } | Sort-Object Lines -Descending | Format-Table -AutoSize
 ```
 
-> **截至 2026-02-21：核心程式碼約為 938 行**
+> **截至 2026-02-22：核心程式碼約為 938 行**
