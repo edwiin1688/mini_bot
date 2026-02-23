@@ -19,24 +19,28 @@ class ShellTool(Tool):
     }
 
     async def execute(self, command: str) -> str:
+        import platform
+        is_windows = platform.system() == "Windows"
+        
         try:
-            result = subprocess.run(
-                command,
-                shell=True,
-                capture_output=True,
-                timeout=60,
-            )
-            try:
-                stdout = result.stdout.decode("utf-8", errors="replace") if result.stdout else ""
-                stderr = result.stderr.decode("utf-8", errors="replace") if result.stderr else ""
-                output = stdout or stderr or "(no output)"
-            except:
-                stdout = result.stdout.decode("latin-1", errors="replace") if result.stdout else ""
-                stderr = result.stderr.decode("latin-1", errors="replace") if result.stderr else ""
-                output = stdout or stderr or "(no output)"
-            if result.returncode != 0:
-                return f"[Exit code: {result.returncode}]\n{output}"
-            return output
+            if is_windows:
+                from plumbum import local
+                result = local(command, shell=True)
+                output = result[1] if len(result) > 1 else str(result[0])
+                return output
+            else:
+                result = subprocess.run(
+                    command,
+                    shell=True,
+                    capture_output=True,
+                    text=True,
+                    encoding="utf-8",
+                    timeout=60,
+                )
+                output = result.stdout or result.stderr or "(no output)"
+                if result.returncode != 0:
+                    return f"[Exit code: {result.returncode}]\n{output}"
+                return output
         except subprocess.TimeoutExpired:
             return "Error: Command timed out after 60 seconds"
         except Exception as e:
