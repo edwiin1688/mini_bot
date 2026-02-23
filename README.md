@@ -14,8 +14,19 @@ MVP 最小可執行性產品（Minimum Viable Product）的 Personal AI Agent，
 ## 快速開始
 
 ```powershell
+# macOS
+brew install pyenv
+
+pyenv install 3.11.9
+pyenv global 3.11.9
+pyenv local 3.11.9
+
+python3 --version
+
 # 安裝
 pip install -e .
+# 或是
+pip3 install -e .
 
 # 複製設定範本到家目錄（Windows PowerShell）
 copy config.example.json ~\.minibot\config.json
