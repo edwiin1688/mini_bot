@@ -10,7 +10,7 @@ from loguru import logger
 
 from minibot.agent.context import ContextBuilder
 from minibot.agent.tools.registry import ToolRegistry
-from minibot.agent.tools.filesystem import ReadFileTool, WriteFileTool, ListDirTool
+from minibot.agent.tools.filesystem import ReadFileTool, WriteFileTool, ListDirTool, ShellTool
 from minibot.bus.events import InboundMessage, OutboundMessage
 from minibot.bus.queue import MessageBus
 from minibot.providers.base import LLMProvider
@@ -49,6 +49,7 @@ class AgentLoop:
         self.tools.register(ReadFileTool())
         self.tools.register(WriteFileTool())
         self.tools.register(ListDirTool())
+        self.tools.register(ShellTool())
 
     async def _run_agent_loop(
         self,

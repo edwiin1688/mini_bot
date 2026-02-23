@@ -13,41 +13,55 @@ MVP 最小可執行性產品（Minimum Viable Product）的 Personal AI Agent，
 
 ## 快速開始
 
-```powershell
-# macOS
-brew install pyenv
+### 1. 環境準備 (以 macOS 為例)
 
+```bash
+# 安裝 pyenv 並設定 Python 3.11.9
+brew install pyenv
 pyenv install 3.11.9
-pyenv global 3.11.9
 pyenv local 3.11.9
 
+# 確認版本
 python3 --version
+```
 
-# 安裝
-pip install -e .
-# 或是
-pip3 install -e .
+### 2. 安裝與設定
 
-# 複製設定範本到家目錄（Windows PowerShell）
-copy config.example.json ~\.minibot\config.json
+```bash
+# 安裝 minibot (開發模式)
+python3 -m pip install -e .
 
-# 初始化 workspace
+# 初始化設定資料夾 (~/.minibot)
+# 如果是第一次執行，請先手動建立資料夾並複製設定
+mkdir -p ~/.minibot
+cp config.example.json ~/.minibot/config.json
+
+# 執行系統初始化 (建立 workspace 等)
 minibot onboard
 
-# 編輯 API Key（用下方範例填入你的 API Key）
-notepad ~\.minibot\config.json
+# 編輯 API Key (支援開源模型或各大 Provider)
+# macOS 使用 open -e, Windows 使用 notepad
+open -e ~/.minibot/config.json
 
-# 複製 workspace 範本（第一次使用）
-copy workspace\AGENTS.md.example workspace\AGENTS.md
-copy workspace\memory\MEMORY.md.example workspace\memory\MEMORY.md
+# 初始化 Workspace 範本
+cp workspace/AGENTS.md.example workspace/AGENTS.md
+mkdir -p workspace/memory
+cp workspace/memory/MEMORY.md.example workspace/memory/MEMORY.md
+```
 
-# 開始聊天
+### 3. 開始使用
+
+```bash
+# 啟動 CLI 互動模式
 minibot agent
-minibot agent -m "Hello!"
 
-# 查看狀態
+# 或是直接下指令
+minibot agent -m "你好，請幫我列出目前目錄下的檔案"
+
+# 查看系統狀態與設定
 minibot status
 ```
+
 
 ## 設定說明（`~/.minibot/config.json`）
 
@@ -139,4 +153,4 @@ minibot telegram
 Get-ChildItem -Recurse -File -Filter *.py minibot | Select-Object FullName | ForEach-Object { $lines = (Get-Content $_.FullName | Measure-Object -Line).Lines; [PSCustomObject]@{ File=$_.FullName.Replace((Get-Location).Path + "\", ""); Lines=$lines } } | Sort-Object Lines -Descending | Format-Table -AutoSize
 ```
 
-> **截至 2026-02-22：核心程式碼約為 938 行**
+> **截至 2026-02-23：核心程式碼約為 1163 行**

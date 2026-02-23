@@ -1,7 +1,40 @@
 """File system tools."""
 
+import subprocess
 from pathlib import Path
 from minibot.agent.tools.base import Tool
+
+
+class ShellTool(Tool):
+    """執行 Shell 指令。"""
+
+    name = "shell"
+    description = "Execute a shell command and return its output."
+    parameters = {
+        "type": "object",
+        "properties": {
+            "command": {"type": "string", "description": "Shell command to execute"}
+        },
+        "required": ["command"]
+    }
+
+    async def execute(self, command: str) -> str:
+        try:
+            result = subprocess.run(
+                command,
+                shell=True,
+                capture_output=True,
+                text=True,
+                timeout=60,
+            )
+            output = result.stdout or result.stderr or "(no output)"
+            if result.returncode != 0:
+                return f"[Exit code: {result.returncode}]\n{output}"
+            return output
+        except subprocess.TimeoutExpired:
+            return "Error: Command timed out after 60 seconds"
+        except Exception as e:
+            return f"Error: {e}"
 
 
 class ReadFileTool(Tool):
