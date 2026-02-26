@@ -25,7 +25,33 @@ pyenv local 3.11.9
 python3 --version
 ```
 
-### 1.1 WSL 環境準備（Ubuntu/Debian）
+### 1.1 Windows 環境準備 (PowerShell 7)
+
+> **重要**：Windows 環境必須使用 **PowerShell 7** (`pwsh`)，請勿使用 CMD 或舊版 PowerShell (v5.1)。
+
+```powershell
+# 安裝 PowerShell 7 (若尚未安裝)
+# 方法一：使用 winget (Windows 10/11)
+winget install Microsoft.PowerShell
+
+# 方法二：使用 Chocolatey
+choco install powershell-core
+
+# 安裝完成後，開啟 PowerShell 7 (pwsh)
+
+# 安裝 Python 3.11
+# 方法一：使用 pyenv-win
+pip install pyenv-win
+pyenv install 3.11.9
+pyenv local 3.11.9
+
+# 方法二：直接從 python.org 下載 Python 3.11
+
+# 確認版本
+python --version
+```
+
+### 1.2 WSL 環境準備（Ubuntu/Debian）
 
 ```bash
 # 安裝 zsh（推薦）與必備工具
@@ -65,26 +91,46 @@ compinit
 
 ```bash
 # 安裝 minibot (開發模式)
+# Linux/macOS/WSL
 python3 -m pip install -e .
+
+# Windows (PowerShell 7)
+python -m pip install -e .
 
 # 初始化設定資料夾 (~/.minibot)
 # 如果是第一次執行，請先手動建立資料夾並複製設定
+# Linux/macOS/WSL
 mkdir -p ~/.minibot
 cp config.example.json ~/.minibot/config.json
+
+# Windows (PowerShell 7)
+New-Item -ItemType Directory -Force -Path ~/.minibot
+Copy-Item config.example.json ~/.minibot/config.json
 
 # 執行系統初始化 (建立 workspace 等)
 minibot onboard
 
 # 編輯 API Key (支援開源模型或各大 Provider)
-# macOS 使用 open -e, Linux/WSS 使用 nano/vim/code
+# macOS 使用 open -e, Linux/WSL 使用 nano/vim/code
 code ~/.minibot/config.json
 # 或
 nano ~/.minibot/config.json
 
+# Windows 使用 notepad 或 code
+notepad $HOME/.minibot/config.json
+# 或
+code $HOME/.minibot/config.json
+
 # 初始化 Workspace 範本
+# Linux/macOS/WSL
 cp workspace/AGENTS.md.example workspace/AGENTS.md
 mkdir -p workspace/memory
 cp workspace/memory/MEMORY.md.example workspace/memory/MEMORY.md
+
+# Windows (PowerShell 7)
+Copy-Item workspace/AGENTS.md.example workspace/AGENTS.md
+New-Item -ItemType Directory -Force -Path workspace/memory
+Copy-Item workspace/memory/MEMORY.md.example workspace/memory/MEMORY.md
 ```
 
 ### 3. 開始使用
@@ -136,6 +182,9 @@ minibot status
 ```bash
 # Linux/macOS/WSL
 minibot telegram
+
+# Windows (PowerShell 7)
+minibot telegram
 ```
 
 在 Telegram 傳訊息給你的 Bot 即可開始聊天，每個使用者會有獨立的 Session 記憶。
@@ -151,6 +200,7 @@ minibot telegram
 | **LLM 呼叫** | 透過 LiteLLM 支援 6 個 Provider，預設 MiniMax M2.5 |
 | **Agent Loop** | LLM ↔ Tool 迭代迴圈（最多 20 輪） |
 | **檔案工具** | `read_file`、`write_file`、`list_dir` |
+| **Shell 工具** | `shell` — 讓 Agent 能執行系統指令 |
 | **Session 持久化** | JSONL 格式，自動載入歷史對話 |
 | **記憶系統** | `MEMORY.md` 長期記憶 + `HISTORY.md` 歷史日誌 |
 | **設定系統** | Pydantic schema，`~/.minibot/config.json`（repo 外，安全） |
@@ -160,7 +210,6 @@ minibot telegram
 
 | 功能 | 說明 |
 |---|---|
-| Shell 工具 | `exec` — 讓 Agent 能執行系統指令 |
 | Web 工具 | `web_search`、`web_fetch` — 讓 Agent 能上網搜尋 |
 | 記憶自動整合 | 自動將對話摘要寫入 MEMORY.md |
 | Cron 排程 | 定時任務 |

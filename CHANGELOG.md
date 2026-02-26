@@ -8,9 +8,11 @@
 
 - 將 `config.json.example` 更名為 `config.example.json`，並同步更新 README。
 - **文件與安裝優化**：更新 README.md 快速開始指令，修正 macOS/Unix 環境下的 `cp` 指令、路徑斜線問題，並建議使用 `python3 -m pip install -e .` 確保安裝正確。 (Why: 解決 macOS 使用者在初始化過程中的指令報錯)
+- **README Windows 支援**：新增 Windows 環境準備說明（PowerShell 7）、Windows 安裝指令（PowerShell 指令），並更新功能總覽表格（移除已實現的 Shell 工具）。(Why: 完善跨平台文件)
 
 ### 新增
 
+- **OS 特定規範**：建立 `Windows/GEMINI.md` 與 `macOS/GEMINI.md`，遵循 GEMINI.md 中的規則導航規範。(Why: 將作業系統特定的開發規則集中管理)
 - **Shell 工具**：`shell` 指令，讓 Agent 能執行系統指令。(Why: 擴展 Agent 能力範圍，使其能執行系統操作)
 - **全域規範與相容性**：建立 `GEMINI.md` 與 `.opencode/rules/AGENTS.md`。(Why: 確保遵循全域 AI Agent 指南，並保持與 Opencode 環境的相容性，同時設定千行代碼的收尾檢查機制)
 - **Telegram 頻道**：`minibot telegram` 指令啟動 Telegram Bot（Polling 模式）。(Why: 將對話介面延展至通訊軟體，讓助理隨時可用)
