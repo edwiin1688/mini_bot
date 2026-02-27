@@ -8,6 +8,7 @@
 
 - 將 `config.json.example` 更名為 `config.example.json`，並同步更新 README。
 - **文件與安裝優化**：更新 README.md 快速開始指令，修正 macOS/Unix 環境下的 `cp` 指令、路徑斜線問題，並建議使用 `python3 -m pip install -e .` 確保安裝正確。 (Why: 解決 macOS 使用者在初始化過程中的指令報錯)
+- **README 視覺優化**：為 README.md 增加情緒符號 (Emojis)，提升閱讀體驗與親和力。(Why: 讓文件更生動)
 - **README Windows 支援**：新增 Windows 環境準備說明（PowerShell 7）、Windows 安裝指令（PowerShell 指令），並更新功能總覽表格（移除已實現的 Shell 工具）。(Why: 完善跨平台文件)
 
 ### 新增
